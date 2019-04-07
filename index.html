@@ -1,0 +1,74 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>歡樂21點</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
+  <link rel="stylesheet" href="styles/normalize.css">
+  <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+  <main>
+    <section class="description">
+      <h1>歡樂21點</h1>
+      <div class="method">
+      <h2>玩法規則</h2>
+      <ul>
+        <li>遊戲開始先發給玩家兩張牌，莊家一張牌</li>
+        <li>撲克牌中"J、Q、K"各為10點</li>
+        <li>撲克牌中的"A"可以當成11點或1點</li>
+        <li>玩家可選擇是否加牌，如需點擊"Hit"</li>
+        <li>如不加牌點擊"Stand"，即換裝家拿牌比賽勝負</li>
+        
+      </ul>
+      </div>
+      <br>
+      <div class="method">
+      <h2>獲勝方式</h2>
+      <ul>
+        <li>獲得21點</li>
+        <li>點數大於莊家且不超過21點</li>
+        <li>取得五張牌且點數不大於21點(過五關)</li>
+        <li>莊家點數大於21點即為我方勝利</li>
+      </ul>
+      </div>
+
+    </section>
+    <section class="game-table">
+
+      <section class="dealer-cards zone">
+        <h1>莊家</h1>
+        <div class="deck">
+          <div class="card"><span></span><div class="dealerCard" id="dealerCard1"></div></div>
+          <div class="card"><span></span><div class="dealerCard" id="dealerCard2"></div></div>
+          <div class="card"><span></span><div class="dealerCard" id="dealerCard3"></div></div>
+          <div class="card"><span></span><div class="dealerCard" id="dealerCard4"></div></div>
+          <div class="card"><span></span><div class="dealerCard" id="dealerCard5"></div></div>
+        </div>
+      </section>
+
+      <section class="your-cards zone">
+        <h1>你</h1>
+        <div class="deck">
+          <div class="card"><span></span><div class="yourCard" id="yourCard1"></div></div>
+          <div class="card"><span></span><div class="yourCard" id="yourCard2"></div></div>
+          <div class="card"><span></span><div class="yourCard" id="yourCard3"></div></div>
+          <div class="card"><span></span><div class="yourCard" id="yourCard4"></div></div>
+          <div class="card"><span></span><div class="yourCard" id="yourCard5"></div></div>
+        </div>
+      </section>
+
+      <footer class="action">
+        <input type="button" id="action-new-game" class="action-button" value="New Game">
+        <input type="button" id="action-hit" class="action-button" value="Hit!" disabled>
+        <input type="button" id="action-stand" class="action-button" value="Stand" disabled>
+      </footer>
+    </section>
+    
+  </main>
+  <script src="scripts/jquery-3.3.1.min.js"></script>
+  <script src="scripts/script.js"></script>
+</body>
+</html>
