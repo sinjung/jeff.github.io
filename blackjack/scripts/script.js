@@ -52,7 +52,7 @@ function initButton(){
         evt.preventDefault();
         dealerDeck.push(deal());
         dealerRound();
-        checkWinner();
+        checkdealerWin();
         showWinner();
     });
 
@@ -60,7 +60,7 @@ function initButton(){
         evt.preventDefault();
         yourDeck.push(deal());
         readyGameTable();
-        checkWinner();
+        checkyouWin();
         showWinner();
     });
 
@@ -168,11 +168,12 @@ function readyGameTable(){
     $('.your-cards h1').html(`你 (${yourPoint}點)`);
     $('.dealer-cards h1').html(`莊家 (${dealerPoint}點)`);
 
-//判斷有無>21點 ,遊戲是否繼續
-    if(yourPoint>=21 || dealerPoint>=21){
+//判斷有無>21點或過五關,遊戲是否繼續
+    if(yourPoint >=21 || dealerPoint >=21 || yourDeck.length ==5 || dealerDeck.length ==5){
         inGame = false;
     }
 
+    
     if(yourPoint ==21){
         $('.your-cards').addClass('win');
     }
@@ -197,7 +198,7 @@ function calculatePoint(allCard){
         point += card.cardPoint();
     })
 
-    if(point >21){
+    if(point >21){ 
         allCard.forEach(function(card){
             if(card.cardNum()==='A'){
                 point -= 10; //點數超過21的話，A當成1點
@@ -223,24 +224,36 @@ function dealerRound(){
     //2.如果點數>玩家 ,遊戲結束莊家贏
     //3.點數<玩家 ,繼續發 重複1
     //4.點數爆,玩家贏
+    //5.拿五張牌未超過21點，莊家贏
 
+    
+    
     while(true){
+        
         dealerPoint =calculatePoint(dealerDeck);
-        if(yourPoint >=dealerPoint){
-            dealerDeck.push(deal());
-        }else{
-            break;
-        }
-    }
+         yourPoint =calculatePoint(yourDeck);
+
+        if(yourPoint >dealerPoint && dealerDeck.length <5 ){
+            dealerDeck.push(deal()); 
+                }
+            else{
+                break;
+            }
+         }
     inGame =false;
    readyGameTable();
     
 }
 
-function checkWinner(){
+function checkyouWin(){
     //比較輸贏
     switch(true){
     
+    //過五關勝
+    case yourDeck.length ==5 && yourPoint <=21 :
+        winner =2;
+        break;
+
     //玩家點數=21 ,玩家贏
     case yourPoint ==21 :
     winner =2;
@@ -251,21 +264,38 @@ function checkWinner(){
     winner =3;
     break;
 
-    case dealerPoint >21 :
-    winner =2;
+    default:
+    winner =1;
     break;
+}
+}
+//判定輸贏
+function checkdealerWin(){
+    //比較輸贏
+    switch(true){
     
     //過五關勝
-    case yourDeck.length ==5 && yourPoint <=21 :
-        winner =2;
-        break;
-
     case dealerDeck.length ==5 && dealerPoint <=21 :
         winner =3;
         break;
 
+    //莊家點數=21 ,玩家贏
+    case dealerPoint ==21 :
+    winner =3;
+    break;
+    
+    //莊家點數>21，玩家贏
+    case dealerPoint >21 :
+    winner =2;
+    break;
+
     //比點數
     case dealerPoint >yourPoint :
+    winner =3;
+    break;
+
+    //平點莊家贏
+    case dealerPoint ==yourPoint :
     winner =3;
     break;
 
@@ -274,9 +304,10 @@ function checkWinner(){
     break;
 }
 }
-
+//顯示獲勝
 function showWinner(){
     switch(winner){
+
     
         case 1:
             break;
